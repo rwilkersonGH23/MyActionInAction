@@ -6,22 +6,22 @@ jobs:
   test:
     runs-on: unbuntu-latest
     steps:
-      -name: Checkout repo to use the action locally
-       uses: actions/checkout@v3.5.3
+    - name: Checkout repo to use the action locally
+    - uses: actions/checkout@v3.5.3
 
-      -name: Run my own container action
-       id: my-action
-       uses: ./
-       with:
-         who-to-greet: '@rwilkerson'
-
-      -name: Output the Answer
-       run: echo "The answer is ${{steps.my-action.outputs.answer}}"
-      
-      -name: Test the container
-       if: ${{ !=steps.my-action.outputs.answer != 42}}
-       run: |
-         echo: "::error file=entrypoint.sh, line=4, title=Error in container::The answer was not expected"
-         exit 1
+    - name: Run my own container action
+      id: my-action
+      uses: ./
+      with:
+        who-to-greet: '@rwilkerson'
+    
+    - name: Output the Answer
+      run: echo "The answer is ${{steps.my-action.outputs.answer}}"
+    
+    - name: Test the container
+      if: ${{ !=steps.my-action.outputs.answer != 42}}
+      run: |
+        echo: "::error file=entrypoint.sh, line=4, title=Error in container::The answer was not expected"
+        exit 1
        
     
